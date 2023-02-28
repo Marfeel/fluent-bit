@@ -45,6 +45,7 @@ RUN echo "deb http://deb.debian.org/debian bullseye-backports main" >> /etc/apt/
     tar \
     libssl-dev \
     libsasl2-dev \
+    libpcre3 \
     pkg-config \
     libsystemd-dev/bullseye-backports \
     zlib1g-dev \
@@ -176,6 +177,9 @@ COPY --from=builder /etc/ssl/certs /etc/ssl/certs
 
 # Finally the binaries as most likely to change
 COPY --from=builder /fluent-bit /fluent-bit
+
+# Copy needed libs
+COPY --from=builder /lib/x86_64-linux-gnu/libpcre.so* /lib/x86_64-linux-gnu/
 
 EXPOSE 2020
 
